@@ -1,6 +1,11 @@
 #!/bin/bash
 
 for file in $(find . -maxdepth 1 -type f ! -name "*.jpg"); do
+    # Skip if this is the file itself
+    if [ "$file" == "$0" ]; then
+        continue
+    fi
+
     base_line="$(echo "$file" | sed 's/\.[^.]*$//')"
     convert "$file" "$base_line.jpg"
     rm $file
